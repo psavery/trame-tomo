@@ -18,10 +18,12 @@ def initialize(server):
                 vuetify.VIcon("mdi-folder-file-outline")
 
             vuetify.VSpacer()
-            vuetify.VSlider(                    # Add slider
-                v_model=("resolution", 6),      # bind variable with an initial value of 6
-                min=3, max=60,                  # slider range
-                dense=True, hide_details=True,  # presentation setup
+            vuetify.VSlider(  # Add slider
+                v_model=("resolution", 6),  # bind variable with an initial value of 6
+                min=3,
+                max=60,  # slider range
+                dense=True,
+                hide_details=True,  # presentation setup
             )
             with vuetify.VBtn(icon=True, click=ctrl.reset_camera):
                 vuetify.VIcon("mdi-crop-free")
@@ -31,12 +33,16 @@ def initialize(server):
         # Main content
         with layout.content:
             with vuetify.VContainer(fluid=True, classes="pa-0 fill-height"):
-                with vtk.VtkView() as vtk_view:                # vtk.js view for local rendering
-                    ctrl.reset_camera = vtk_view.reset_camera  # Bind method to controller
-                    with vtk.VtkGeometryRepresentation():      # Add representation to vtk.js view
-                        vtk.VtkAlgorithm(                      # Add ConeSource to representation
-                            vtkClass="vtkConeSource",          # Set attribute value with no JS eval
-                            state=("{ resolution }",)          # Set attribute value with JS eval
+                with vtk.VtkView() as vtk_view:  # vtk.js view for local rendering
+                    ctrl.reset_camera = (
+                        vtk_view.reset_camera
+                    )  # Bind method to controller
+                    with vtk.VtkGeometryRepresentation():  # Add representation to vtk.js view
+                        vtk.VtkAlgorithm(  # Add ConeSource to representation
+                            vtkClass="vtkConeSource",  # Set attribute value with no JS eval
+                            state=(
+                                "{ resolution }",
+                            ),  # Set attribute value with JS eval
                         )
 
         # Footer

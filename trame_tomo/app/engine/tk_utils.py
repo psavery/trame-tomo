@@ -13,6 +13,7 @@ ROOT_TK.wm_attributes("-topmost", 1)
 
 LAST_DIRECTORY = None
 
+
 def open_file(title=None, initial_dir=None):
 
     if initial_dir is None:

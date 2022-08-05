@@ -32,7 +32,8 @@ class Engine:
 
     def open_file(self):
         output = open_file()
-        print(f'{output=}')
+        print(f"{output=}")
+
 
 # ---------------------------------------------------------
 # Server binding
