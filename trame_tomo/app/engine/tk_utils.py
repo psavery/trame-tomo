@@ -3,13 +3,13 @@ from tkinter import filedialog, Tk
 
 
 # Init tkinter browser
-ROOT_TK = Tk()
+TK_ROOT = Tk()
 
 # Ensure the tkinter main window is hidden
-ROOT_TK.withdraw()
+TK_ROOT.withdraw()
 
 # Ensure that the file browser will appear in front on Windows
-ROOT_TK.wm_attributes("-topmost", 1)
+TK_ROOT.wm_attributes("-topmost", 1)
 
 LAST_DIRECTORY = None
 
