@@ -1,5 +1,13 @@
+import trame.env.paraview  # noqa
+
+from paraview import simple
+
 from trame.ui.vuetify import SinglePageLayout
-from trame.widgets import vuetify, vtk
+from trame.widgets import paraview, vuetify
+
+cone = simple.Cone()
+representation = simple.Show(cone)
+view = simple.Render()
 
 
 # Create single page layout type
@@ -7,6 +15,11 @@ from trame.widgets import vuetify, vtk
 def initialize(server):
     state, ctrl = server.state, server.controller
     state.trame__title = "Trame Tomo"
+
+    @state.change("resolution")
+    def update_cone(resolution, **kwargs):
+        cone.Resolution = resolution
+        ctrl.view_update()
 
     with SinglePageLayout(server) as layout:
         # Toolbar
@@ -33,17 +46,6 @@ def initialize(server):
         # Main content
         with layout.content:
             with vuetify.VContainer(fluid=True, classes="pa-0 fill-height"):
-                with vtk.VtkView() as vtk_view:  # vtk.js view for local rendering
-                    ctrl.reset_camera = (
-                        vtk_view.reset_camera
-                    )  # Bind method to controller
-                    with vtk.VtkGeometryRepresentation():  # Add representation to vtk.js view
-                        vtk.VtkAlgorithm(  # Add ConeSource to representation
-                            vtkClass="vtkConeSource",  # Set attribute value with no JS eval
-                            state=(
-                                "{ resolution }",
-                            ),  # Set attribute value with JS eval
-                        )
-
-        # Footer
-        # layout.footer.hide()
+                html_view = paraview.VtkLocalView(view, ref="view")
+                ctrl.reset_camera = html_view.reset_camera
+                ctrl.view_update = html_view.update
