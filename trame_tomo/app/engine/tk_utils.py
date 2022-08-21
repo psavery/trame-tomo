@@ -28,4 +28,4 @@ def open_file(title=None, initial_dir=None):
         "title": title,
         "initialdir": initial_dir,
     }
-    return filedialog.askopenfile(**kwargs)
+    return filedialog.askopenfilename(**kwargs)
