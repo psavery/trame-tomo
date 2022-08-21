@@ -1,3 +1,7 @@
+import wslink  # Have to import this first so we won't use ParaView's
+
+import trame.env.paraview  # noqa
+
 from trame.app import get_server, dev
 from . import engine, ui
 

@@ -1,5 +1,3 @@
-import trame.env.paraview  # noqa
-
 from paraview import simple
 
 from trame.ui.vuetify import SinglePageLayout
