@@ -42,10 +42,15 @@ class Engine:
         if data is None:
             raise Exception(f'Failed to find a reader for {selected_file}')
 
-        view = simple.GetRenderView()
-        simple.Show(data, view=view)
+        # Delete the current active source
+        simple.Delete()
+
+        # Add the new source
+        simple.Show(data)
         simple.ResetCamera()
         simple.Render()
 
-        self._server.controller.reset_camera()
-        self._server.controller.view_update()
+        ctrl = self._server.controller
+
+        ctrl.view_update()
+        ctrl.reset_camera()

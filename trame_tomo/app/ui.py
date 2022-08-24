@@ -7,7 +7,6 @@ cone = simple.Cone()
 representation = simple.Show(cone)
 view = simple.Render()
 
-
 # Create single page layout type
 # (FullScreenPage, SinglePage, SinglePageWithDrawer)
 def initialize(server):
@@ -44,6 +43,6 @@ def initialize(server):
         # Main content
         with layout.content:
             with vuetify.VContainer(fluid=True, classes="pa-0 fill-height"):
-                html_view = paraview.VtkLocalView(view, ref="view")
+                html_view = paraview.VtkRemoteView(view, ref="view")
                 ctrl.reset_camera = html_view.reset_camera
                 ctrl.view_update = html_view.update
