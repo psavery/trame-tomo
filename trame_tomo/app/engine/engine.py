@@ -50,6 +50,7 @@ class Engine:
         # For now, hard-code the TIFFSeriesReader
         data = simple.TIFFSeriesReader(FileNames=[selected_file])
 
+        # FIXME: this is not working anymore
         # Delete the current active source
         simple.Delete(current_source)
 
