@@ -38,19 +38,32 @@ class Engine:
             # User cancelled
             return
 
-        data = simple.OpenDataFile(selected_file)
-        if data is None:
-            raise Exception(f'Failed to find a reader for {selected_file}')
+        # Save the current source
+        current_source = simple.GetActiveSource()
+
+        # FIXME: for a .tif file, this uses a GDAL reader. Why? Why doesn't it
+        # just use a TIFFSeriesReader?
+        # data = simple.OpenDataFile(selected_file)
+        # if data is None:
+        #     raise Exception(f'Failed to find a reader for {selected_file}')
+
+        # For now, hard-code the TIFFSeriesReader
+        data = simple.TIFFSeriesReader(FileNames=[selected_file])
 
         # Delete the current active source
-        simple.Delete()
+        simple.Delete(current_source)
 
         # Add the new source
-        simple.Show(data)
-        simple.ResetCamera()
-        simple.Render()
+        rep = simple.Show(data)
+
+        # Render it as a volume
+        rep.SetRepresentationType('Volume')
 
         ctrl = self._server.controller
 
+        # Need to push the server change to the client
         ctrl.view_update()
+
+        # Need to get the client to reset camera (otherwise,
+        # center of rotation will be off)
         ctrl.reset_camera()
