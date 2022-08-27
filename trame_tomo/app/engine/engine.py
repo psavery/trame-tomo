@@ -5,6 +5,7 @@ import logging
 
 from paraview import simple
 
+from .io import read_file
 from .tk_utils import open_file
 
 logger = logging.getLogger(__name__)
@@ -35,14 +36,8 @@ class Engine:
             # User cancelled
             return
 
-        # FIXME: for a .tif file, this uses a GDAL reader. Why? Why doesn't it
-        # just use a TIFFSeriesReader?
-        # data = simple.OpenDataFile(selected_file)
-        # if data is None:
-        #     raise Exception(f'Failed to find a reader for {selected_file}')
-
-        # For now, hard-code the TIFFSeriesReader
-        data = simple.TIFFSeriesReader(FileNames=[selected_file])
+        # Read the data file
+        data = read_file(selected_file)
 
         # Clear all sources that have been created
         self.clear_sources()
