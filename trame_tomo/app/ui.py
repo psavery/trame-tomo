@@ -5,8 +5,7 @@ from trame.widgets import paraview, vuetify
 
 
 def initialize(server):
-    # Create our view
-    view = simple.CreateView('RenderView')
+    view = simple.GetRenderView()
 
     state, ctrl = server.state, server.controller
     state.trame__title = "Trame Tomo"
