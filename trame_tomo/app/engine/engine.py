@@ -19,18 +19,21 @@ class Engine:
     def __init__(self, server):
         self._server = server
 
+        self.sources = []
+
         # initialize state + controller
         state, ctrl = server.state, server.controller
         ctrl.open_file = self.open_file
+
+    def clear_sources(self):
+        while self.sources:
+            simple.Delete(self.sources.pop(0))
 
     def open_file(self):
         selected_file = open_file()
         if not selected_file:
             # User cancelled
             return
-
-        # Save the current source
-        current_source = simple.GetActiveSource()
 
         # FIXME: for a .tif file, this uses a GDAL reader. Why? Why doesn't it
         # just use a TIFFSeriesReader?
@@ -41,12 +44,12 @@ class Engine:
         # For now, hard-code the TIFFSeriesReader
         data = simple.TIFFSeriesReader(FileNames=[selected_file])
 
-        # FIXME: this is not working anymore
-        # Delete the current active source
-        simple.Delete(current_source)
+        # Clear all sources that have been created
+        self.clear_sources()
 
-        # Add the new source
+        # Create the new source
         rep = simple.Show(data)
+        self.sources.append(rep)
 
         # Render it as a volume
         rep.SetRepresentationType('Volume')
