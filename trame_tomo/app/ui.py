@@ -17,7 +17,7 @@ def initialize(server):
 
     with SinglePageLayout(server) as layout:
         # Toolbar
-        layout.title.set_text("Trame / vtk.js")
+        layout.title.set_text("Trame Tomo")
         with layout.toolbar:
             with vuetify.VBtn(
                 icon=True, click=ctrl.open_file, small=True, classes="mx-4"
