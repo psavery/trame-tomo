@@ -6,6 +6,11 @@ from trame.widgets import paraview, vuetify
 
 def initialize(server):
     view = simple.GetRenderView()
+    window = view.GetRenderWindow()
+
+    if window:
+        # Hide the render window
+        window.OffScreenRenderingOn()
 
     state, ctrl = server.state, server.controller
     state.trame__title = "Trame Tomo"
