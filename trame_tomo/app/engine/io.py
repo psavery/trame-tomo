@@ -9,8 +9,8 @@ def read_file(filename):
     # Use these readers by default if the file extension matches.
     # The values are unary callables that take the file path as an argument.
     default_readers = {
-        '.tif': read_tif,
-        '.tiff': read_tif,
+        ".tif": read_tif,
+        ".tiff": read_tif,
     }
 
     if filename.suffix in default_readers:
@@ -19,7 +19,7 @@ def read_file(filename):
     # If we don't have a default reader, then just try opening it with ParaView
     data = simple.OpenDataFile(str(filename))
     if data is None:
-        raise Exception(f'Failed to find a reader for {filename}')
+        raise Exception(f"Failed to find a reader for {filename}")
 
     return data
 
@@ -36,17 +36,21 @@ def paraview_readers(filename):
 
     results = []
     for i in range(0, readers.GetLength(), 3):
-        results.append({
-            'group': readers.GetString(i),
-            'name': readers.GetString(i + 1),
-            'label': readers.GetString(i + 2),
-        })
+        results.append(
+            {
+                "group": readers.GetString(i),
+                "name": readers.GetString(i + 1),
+                "label": readers.GetString(i + 2),
+            }
+        )
 
     return results
 
 
 def paraview_reader_factory():
-    reader_factory = simple.servermanager.vtkSMProxyManager.GetProxyManager().GetReaderFactory()
+    reader_factory = (
+        simple.servermanager.vtkSMProxyManager.GetProxyManager().GetReaderFactory()
+    )
 
     if reader_factory.GetNumberOfRegisteredPrototypes() == 0:
         reader_factory.UpdateAvailableReaders()

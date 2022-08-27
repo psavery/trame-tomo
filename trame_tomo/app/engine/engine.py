@@ -47,7 +47,7 @@ class Engine:
         self.sources.append(rep)
 
         # Render it as a volume
-        rep.SetRepresentationType('Volume')
+        rep.SetRepresentationType("Volume")
 
         ctrl = self._server.controller
 
