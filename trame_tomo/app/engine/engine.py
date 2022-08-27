@@ -22,15 +22,6 @@ class Engine:
         # initialize state + controller
         state, ctrl = server.state, server.controller
         ctrl.open_file = self.open_file
-        state.resolution = 6
-        ctrl.reset_resolution = self.reset_resolution
-        state.change("resolution")(self.on_resolution_change)
-
-    def reset_resolution(self):
-        self._server.state.resolution = 6
-
-    def on_resolution_change(self, resolution, **kwargs):
-        logger.info(f">>> ENGINE(a): Slider updating resolution to {resolution}")
 
     def open_file(self):
         selected_file = open_file()
