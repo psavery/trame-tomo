@@ -1,4 +1,4 @@
-import wslink  # Have to import this first so we won't use ParaView's
+import wslink  # noqa - Have to import this first so we won't use ParaView's
 
 import trame.env.paraview  # noqa
 

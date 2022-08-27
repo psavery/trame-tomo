@@ -11,7 +11,7 @@ logger.setLevel(logging.INFO)
 
 
 def initialize(server):
-    state, ctrl = server.state, server.controller
+    ctrl = server.controller
 
     def protocols_ready(**initial_state):
         logger.info(f">>> ENGINE(b): Server is ready {initial_state}")

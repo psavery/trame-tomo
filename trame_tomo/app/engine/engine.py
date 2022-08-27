@@ -23,7 +23,7 @@ class Engine:
         self.sources = []
 
         # initialize state + controller
-        state, ctrl = server.state, server.controller
+        ctrl = server.controller
         ctrl.open_file = self.open_file
 
     def clear_sources(self):
