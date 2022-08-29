@@ -24,7 +24,13 @@ class Engine:
 
         # initialize state + controller
         ctrl = server.controller
+        state = server.state
+        state.change('opacities')(self.print_opacities)
+
         ctrl.open_file = self.open_file
+
+    def print_opacities(self, opacities, **kwargs):
+        print(f'{opacities=}')
 
     def clear_sources(self):
         while self.sources:

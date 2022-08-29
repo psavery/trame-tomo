@@ -1,6 +1,6 @@
 from paraview import simple
 
-from trame.ui.vuetify import SinglePageLayout
+from trame.ui.vuetify import SinglePageWithDrawerLayout
 from trame.widgets import paraview, vuetify
 
 
@@ -15,7 +15,7 @@ def initialize(server):
     state, ctrl = server.state, server.controller
     state.trame__title = "Trame Tomo"
 
-    with SinglePageLayout(server) as layout:
+    with SinglePageWithDrawerLayout(server) as layout:
         # Toolbar
         layout.title.set_text("Trame Tomo")
         with layout.toolbar:
@@ -27,6 +27,24 @@ def initialize(server):
             vuetify.VSpacer()
             with vuetify.VBtn(icon=True, click=ctrl.reset_camera):
                 vuetify.VIcon("mdi-crop-free")
+
+        def print_opacities(opacities, **kwargs):
+            print(f'Sampled opacities: {opacities=}')
+
+        with layout.drawer as drawer:
+            drawer.width = 400
+            state.opacities = {
+                'points': [0, 0, 1, 1],
+                'gaussians': [],
+            }
+            with vuetify.VCard():
+                with vuetify.VCardText(style='height: 400px;') as content:
+                    content.add_child(f"""
+                        <vtk-piecewise-editor
+                          v-model="opacities"
+                          @opacities="trigger('{ctrl.trigger_name(print_opacities)}', [Array.from($event)])"
+                        />
+                    """)
 
         # Main content
         with layout.content:
