@@ -29,7 +29,8 @@ def initialize(server):
                 vuetify.VIcon("mdi-crop-free")
 
         def print_opacities(opacities, **kwargs):
-            print(f'Sampled opacities: {opacities=}')
+            # print(f'Sampled opacities: {opacities=}')
+            pass
 
         with layout.drawer as drawer:
             drawer.width = 400
