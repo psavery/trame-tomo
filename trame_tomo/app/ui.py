@@ -28,10 +28,6 @@ def initialize(server):
             with vuetify.VBtn(icon=True, click=ctrl.reset_camera):
                 vuetify.VIcon("mdi-crop-free")
 
-        def print_opacities(opacities, **kwargs):
-            # print(f'Sampled opacities: {opacities=}')
-            pass
-
         with layout.drawer as drawer:
             drawer.width = 400
             state.opacities = {
@@ -43,7 +39,6 @@ def initialize(server):
                     content.add_child(f"""
                         <vtk-piecewise-editor
                           v-model="opacities"
-                          @opacities="trigger('{ctrl.trigger_name(print_opacities)}', [Array.from($event)])"
                         />
                     """)
 
