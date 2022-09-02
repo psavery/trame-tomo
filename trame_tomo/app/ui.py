@@ -48,3 +48,6 @@ def initialize(server):
                 html_view = paraview.VtkRemoteView(view, ref="view")
                 ctrl.reset_camera = html_view.reset_camera
                 ctrl.view_update = html_view.update
+
+        # Prevent selection/highlighting
+        layout.root.style = "user-select: none;"
